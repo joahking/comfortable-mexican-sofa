@@ -1,8 +1,8 @@
 class Cms::File < ActiveRecord::Base
   include Cms::Base
-  
-  IMAGE_MIMETYPES = %w(gif jpeg pjpeg png tiff).collect{|subtype| "image/#{subtype}"}
-  
+
+  IMAGE_MIMETYPES = %w(gif jpe jpeg jpg pjpeg png tiff).collect{|subtype| "image/#{subtype}"}
+
   cms_is_categorized
   
   attr_accessor :dimensions
@@ -19,6 +19,8 @@ class Cms::File < ActiveRecord::Base
       end
     }
   )
+  validates_attachment_content_type :file, content_type: IMAGE_MIMETYPES
+
   before_post_process :is_image?
   
   # -- Relationships --------------------------------------------------------
